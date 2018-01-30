@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="food10">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food10</title>
+
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/controller.js"></script>
+
+    <style>
+		.jumbotron {
+			width: 400px;
+			text-align: center;
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		h3 {
+			margin-bottom: 30px;
+		}
+		.table {
+			margin-top: 20px;
+		}
+		.form-control {
+			margin-bottom: 5px;
+		}
+		.selecionado {
+			background-color: yellow;
+		}
+		.negrito {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body ng-controller="products">
+
+    <div class="jumbotron">
+		<table ng-show="products.length > 0" class="table">
+			<tr>
+				<th></th>
+				<th>Nome</th>
+				<th>Preço</th>
+				<th></th>
+			</tr>
+			<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
+				<td><input type="checkbox" ng-model="product.selected"/></td>
+				<td>{{product.name}}</td>
+				<td>{{product.price}}</td>
+			</tr>
+		</table>
+		<hr/>
+		<form name="contatoForm">
+			<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
+			<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Preço" ng-required="true"/>
+		</form>
+
+		<div ng-messages="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
+				Por favor, preencha o campo nome!
+		</div>
+
+        <div ng-messages="contatoForm.preco.$error.required && contatoForm.preco.$dirty" class="alert alert-danger">
+				Por favor, preencha o campo preço!
+		</div>
+
+		<button class="btn btn-primary btn-block" ng-click="createProduct()" ng-disabled="contatoForm.$invalid">Adicionar Contato</button>
+		<!--<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>-->
+	</div>
+
+</body>
+</html>
