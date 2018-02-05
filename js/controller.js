@@ -21,4 +21,12 @@ app.controller('products', ($scope, $http) => {
             delete $scope.product;
         });
     };
+
+    $scope.apagarProdutos = () => {
+        $scope.products.forEach(product => {
+            if(product.selected) {
+                $http.delete(products.concat('/', product.id)).then(res => $scope.products = $scope.products.filter(p => p.id != product.id));
+            }
+        });
+    };
 });
