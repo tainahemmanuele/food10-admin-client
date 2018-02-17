@@ -38,38 +38,65 @@
 		}
 	</style>
 </head>
-<body ng-controller="products">
+<body>
+	<div ng-controller="basket">
+		<div class="jumbotron">
+			<table ng-show="products.length > 0" class="table">
+				<tr>
+					<th></th>
+					
+					<th>Nome</th>
+					<th>Preço</th>
+				</tr>
+				<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
+					<td><input type="checkbox" ng-model="product.selected"/></td>
+					<td>{{product.name}}</td>
+					<td>{{product.price}}</td>
+				</tr>
+			</table>
+			<hr/>
+			<form name="contatoForm">
+				<input class="form-control" type="text" ng-model="basket.name" name="nome" placeholder="Nome" ng-required="true"/>
+				<input class="form-control" type="number" ng-model="basket.price" name="preco" placeholder="Preço" ng-required="true"/>
+			</form>
 
-    <div class="jumbotron">
-		<table ng-show="products.length > 0" class="table">
-			<tr>
-				<th></th>
-				
-				<th>Nome</th>
-				<th>Preço</th>
-			</tr>
-			<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
-				<td><input type="checkbox" ng-model="product.selected"/></td>
-				<td>{{product.name}}</td>
-				<td>{{product.price}}</td>
-			</tr>
-		</table>
-		<hr/>
-		<form name="contatoForm">
-			<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
-			<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Preço" ng-required="true"/>
-		</form>
-
-		<!--<div ng-messages="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
-				Por favor, preencha o campo nome!
+			<button class="btn btn-primary btn-block" ng-click="createBasket()" ng-disabled="contatoForm.$invalid">Criar Cesta</button>
+			<button class="btn btn-danger btn-block" ng-click="deleteBasket()">Apagar Cesta</button>
 		</div>
+	</div>
 
-        <div ng-messages="contatoForm.preco.$error.required && contatoForm.preco.$dirty" class="alert alert-danger">
-				Por favor, preencha o campo preço!
-		</div>-->
+	<div ng-controller="products">
+		<div class="jumbotron">
+			<table ng-show="products.length > 0" class="table">
+				<tr>
+					<th></th>
+					
+					<th>Nome</th>
+					<th>Preço</th>
+				</tr>
+				<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
+					<td><input type="checkbox" ng-model="product.selected"/></td>
+					<td>{{product.name}}</td>
+					<td>{{product.price}}</td>
+				</tr>
+			</table>
+			<hr/>
+			<form name="contatoForm">
+				<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
+				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Preço" ng-required="true"/>
+			</form>
 
-		<button class="btn btn-primary btn-block" ng-click="createProduct()" ng-disabled="contatoForm.$invalid">Adicionar Produto</button>
-		<button class="btn btn-danger btn-block" ng-click="apagarProdutos()">Apagar produtos</button>
+			<!--<div ng-messages="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
+					Por favor, preencha o campo nome!
+			</div>
+
+			<div ng-messages="contatoForm.preco.$error.required && contatoForm.preco.$dirty" class="alert alert-danger">
+					Por favor, preencha o campo preço!
+			</div>-->
+
+			<button class="btn btn-primary btn-block" ng-click="createProduct()" ng-disabled="contatoForm.$invalid">Adicionar Produto</button>
+			<button class="btn btn-danger btn-block" ng-click="apagarProdutos()">Apagar produtos</button>
+		</div>
 	</div>
 </body>
 </html>
