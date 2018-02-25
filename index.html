@@ -61,6 +61,22 @@
 			</form>
 
 			<button class="btn btn-primary btn-block" ng-click="createHamper()" ng-disabled="contatoForm.$invalid">Criar Cesta</button>
+			
+			<table ng-show="hampers.length > 0" class="table">
+				<tr>
+					<th></th>
+					<th>Nome</th>
+					<th>Descrição</th>
+					<th>Produtos</th>
+				</tr>
+				<tr ng-class="{'selecionado negrito': hamper.selected}" ng-repeat="hamper in hampers">
+					<td><input type="checkbox" ng-model="hamper.selected"/></td>
+					<td>{{hamper.name}}</td>
+					<td>{{hamper.description}}</td>
+					<td ng-repeat="prod in hamper.products">{{prod.name}}</td>
+				</tr>
+			</table>
+			
 			<button class="btn btn-danger btn-block" ng-click="deleteHampers()">Apagar Cesta</button>
 		</div>
 	</div>
