@@ -39,7 +39,7 @@
 	</style>
 </head>
 <body>
-	<div ng-controller="basket">
+	<div ng-controller="hampers">
 		<div class="jumbotron">
 			<table ng-show="products.length > 0" class="table">
 				<tr>
@@ -56,12 +56,12 @@
 			</table>
 			<hr/>
 			<form name="contatoForm">
-				<input class="form-control" type="text" ng-model="basket.name" name="nome" placeholder="Nome" ng-required="true"/>
-				<input class="form-control" type="number" ng-model="basket.price" name="preco" placeholder="Preço" ng-required="true"/>
+				<input class="form-control" type="text" ng-model="hamper.name" name="nome" placeholder="Nome" ng-required="true"/>
+				<input class="form-control" type="text" ng-model="hamper.description" name="descricao" placeholder="Descrição"/>
 			</form>
 
-			<button class="btn btn-primary btn-block" ng-click="createBasket()" ng-disabled="contatoForm.$invalid">Criar Cesta</button>
-			<button class="btn btn-danger btn-block" ng-click="deleteBasket()">Apagar Cesta</button>
+			<button class="btn btn-primary btn-block" ng-click="createHamper()" ng-disabled="contatoForm.$invalid">Criar Cesta</button>
+			<button class="btn btn-danger btn-block" ng-click="deleteHampers()">Apagar Cesta</button>
 		</div>
 	</div>
 
@@ -78,12 +78,18 @@
 					<td><input type="checkbox" ng-model="product.selected"/></td>
 					<td>{{product.name}}</td>
 					<td>{{product.price}}</td>
+					<td><button  ng-click="showEditProductForm(product)">Editar Produto</button></td>
 				</tr>
 			</table>
 			<hr/>
 			<form name="contatoForm">
 				<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
 				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Preço" ng-required="true"/>
+			</form>
+			<form name="editProduct" ng-show="editFormVisibility"  >
+				<input class="form-control" type="text" ng-model="product.name" name="nome"  placeholder="Edite o nome do produto" ng-required="true"/>
+				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Edite o preco do produto" ng-required="true"/>
+				<button  class="btn btn-primary btn-block" ng-click="updateProduct(product)" >Editar Produto</button>
 			</form>
 
 			<!--<div ng-messages="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">

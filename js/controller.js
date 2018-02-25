@@ -28,12 +28,27 @@ app.controller('products', ($scope, $http) => {
             }
         });
     };
+
+    $scope.showEditProductForm =  function(data){
+        $scope.product = data;
+        $scope.editFormVisibility = true;
+    };
+
+    $scope.updateProduct = function(product){
+        $http.put(products.concat('/', product.id), product).then(res => {
+            $scope.products = $scope.products.filter(p => p.id != product.id);
+            $scope.products.push(res.data);
+            $scope.editFormVisibility = false;
+        });
+    };
 });
 
-app.controller('basket', ($scope, $http) => {
+app.controller('hampers', ($scope, $http) => {
     const base = 'https://food10-api.herokuapp.com/';
     const products = base + 'products';
-    const baskets = base + 'baskets';
+    const hampers = base + 'hampers';
+
+    $scope.hamper = {};
 
     const init = () => {
         $http.get(products).then(res => {
@@ -45,14 +60,22 @@ app.controller('basket', ($scope, $http) => {
         init();
     })();
 
-    $scope.createBasket = () => {
-        $scope.basket.products = $scope.products
+    $scope.createHamper = () => {
+        $scope.hamper.products = $scope.products
                                     .filter(product => product.selected)
                                     .map(product => product.id);
-                                    
-        $http.post(baskets, $scope.basket).then(res => {
-            console.log(res);
+        
+        $http.post(hampers, $scope.hamper).then(res => {
+            $scope.hamper.products.forEach(productID => {
+                $http.patch(products.concat('/', productID), {'hamper_id': res.data.id})
+                    .then(product => {
+                        $scope.products = $scope.products.filter(p => p.id != product.data.id);
+                        $scope.products.push(product.data);
+                    }
+                );
+            });
         });
+                                    
     };
 
     $scope.deleteBasket = () => {
