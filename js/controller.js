@@ -54,4 +54,12 @@ app.controller('basket', ($scope, $http) => {
             console.log(res);
         });
     };
+
+    $scope.deleteBasket = () => {
+        $scope.baskets.forEach(basket => {
+            if(basket.selected) {
+                $http.delete(baskets.concat('/', basket.id)).then(res => $scope.baskets = $scope.baskets.filter(b => b.id != basket.id));
+            }
+        });
+    };
 });
