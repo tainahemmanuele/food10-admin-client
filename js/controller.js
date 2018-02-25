@@ -54,6 +54,9 @@ app.controller('hampers', ($scope, $http) => {
         $http.get(products).then(res => {
             $scope.products = res.data;
         });
+        $http.get(hampers).then(res => {
+            $scope.hampers = res.data;
+        });
     };
 
     (() => {
@@ -78,10 +81,18 @@ app.controller('hampers', ($scope, $http) => {
                                     
     };
 
-    $scope.deleteBasket = () => {
-        $scope.baskets.forEach(basket => {
-            if(basket.selected) {
-                $http.delete(baskets.concat('/', basket.id)).then(res => $scope.baskets = $scope.baskets.filter(b => b.id != basket.id));
+    $scope.deleteHampers = () => {
+        $scope.hampers.forEach(hamper => {
+            if(hamper.selected) {
+                hamper.products.forEach(product => {
+                    $http.patch(products.concat('/', product.id), {hamper_id:null}).then(
+                        product => {
+                            $scope.products = $scope.products.filter(p => p.id != product.data.id);
+                            $scope.products.push(product.data);
+                        }
+                    )
+                });
+                $http.delete(hampers.concat('/', hamper.id)).then(res => $scope.hampers = $scope.hampers.filter(h => h.id != hamper.id));
             }
         });
     };
