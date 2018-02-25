@@ -78,12 +78,18 @@
 					<td><input type="checkbox" ng-model="product.selected"/></td>
 					<td>{{product.name}}</td>
 					<td>{{product.price}}</td>
+					<td><button  ng-click="showEditProductForm(product)">Editar Produto</button></td>
 				</tr>
 			</table>
 			<hr/>
 			<form name="contatoForm">
 				<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
 				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Preço" ng-required="true"/>
+			</form>
+			<form name="editProduct" ng-show="editFormVisibility"  >
+				<input class="form-control" type="text" ng-model="product.name" name="nome"  placeholder="Edite o nome do produto" ng-required="true"/>
+				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Edite o preco do produto" ng-required="true"/>
+				<button  class="btn btn-primary btn-block" ng-click="updateProduct(product)" >Editar Produto</button>
 			</form>
 
 			<!--<div ng-messages="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">

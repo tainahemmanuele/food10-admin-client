@@ -28,7 +28,22 @@ app.controller('products', ($scope, $http) => {
             }
         });
     };
-});
+
+    $scope.showEditProductForm =  function(data){
+        $scope.product = data;
+        $scope.editFormVisibility = true;
+    };
+
+    $scope.updateProduct = function(product){
+        $http.put(products.concat('/', product.id), product).then(res => {
+            $scope.products = $scope.products.filter(p => p.id != product.id);
+            $scope.products.push(res.data);
+            $scope.editFormVisibility = false;
+            });
+        };
+    });
+
+
 
 app.controller('basket', ($scope, $http) => {
     const base = 'https://food10-api.herokuapp.com/';
