@@ -47,6 +47,7 @@ app.controller('hampers', ($scope, $http) => {
     const base = 'https://food10-api.herokuapp.com/';
     const products = base + 'products';
     const hampers = base + 'hampers';
+    const profit = 0.1;
 
     $scope.hamper = {};
 
@@ -95,5 +96,18 @@ app.controller('hampers', ($scope, $http) => {
                 $http.delete(hampers.concat('/', hamper.id)).then(res => $scope.hampers = $scope.hampers.filter(h => h.id != hamper.id));
             }
         });
+    };
+
+    function calculateHamperPrice(hamper) {
+        var total = 0;
+        hamper.products.forEach(product => {
+            total = total + product.price;
+        });
+        return total;
+    };
+
+    function calculateTotalPrice(hamper) {
+       var valueP = calculateHamperPrice(hamper);
+       return valueP + valueP*profit;
     };
 });
