@@ -68,12 +68,14 @@
 					<th>Nome</th>
 					<th>Descrição</th>
 					<th>Produtos</th>
+					<th>Valor de Venda</th>
 				</tr>
 				<tr ng-class="{'selecionado negrito': hamper.selected}" ng-repeat="hamper in hampers">
 					<td><input type="checkbox" ng-model="hamper.selected"/></td>
 					<td>{{hamper.name}}</td>
 					<td>{{hamper.description}}</td>
 					<td ng-repeat="prod in hamper.products">{{prod.name}}</td>
+					<td ng-bind="calculateTotalPrice(hamper)"></td>
 				</tr>
 			</table>
 			
