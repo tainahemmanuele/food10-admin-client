@@ -8,7 +8,6 @@ app.controller('products', ($scope, $http) => {
         $http.get(products).then(res => {
             $scope.products = res.data;
         });
-        $scope.products = [{"id":44,"name":"Melão","price":17.0,"created_at":"2018-02-25T15:13:56.088Z","updated_at":"2018-02-26T02:16:11.205Z","hamper_id":25},{"id":40,"name":"Jaca","price":13.0,"created_at":"2018-02-24T20:49:43.147Z","updated_at":"2018-02-26T02:16:11.207Z","hamper_id":25},{"id":3,"name":"galinha","price":20.0,"created_at":"2018-01-30T00:46:56.351Z","updated_at":"2018-02-26T17:13:09.422Z","hamper_id":27},{"id":43,"name":"Feijão","price":10.0,"created_at":"2018-02-25T14:49:18.250Z","updated_at":"2018-02-26T17:13:09.475Z","hamper_id":27}];
     };
 
     (() => {
@@ -56,7 +55,6 @@ app.controller('hampers', ($scope, $http) => {
         $http.get(products).then(res => {
             $scope.products = res.data;
         });
-        $scope.products = [{"id":44,"name":"Melão","price":17.0,"created_at":"2018-02-25T15:13:56.088Z","updated_at":"2018-02-26T02:16:11.205Z","hamper_id":25},{"id":40,"name":"Jaca","price":13.0,"created_at":"2018-02-24T20:49:43.147Z","updated_at":"2018-02-26T02:16:11.207Z","hamper_id":25},{"id":3,"name":"galinha","price":20.0,"created_at":"2018-01-30T00:46:56.351Z","updated_at":"2018-02-26T17:13:09.422Z","hamper_id":27},{"id":43,"name":"Feijão","price":10.0,"created_at":"2018-02-25T14:49:18.250Z","updated_at":"2018-02-26T17:13:09.475Z","hamper_id":27}];
 
         $http.get(hampers).then(res => {
             $scope.hampers = res.data;
