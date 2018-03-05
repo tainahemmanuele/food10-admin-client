@@ -6,37 +6,13 @@
     <title>Food10</title>
 
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/style.css">
 
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="js/controller.js"></script>
-
-    <style>
-		.jumbotron {
-			width: 600px;
-			text-align: center;
-			margin-top: 20px;
-			margin-left: auto;
-			margin-right: auto;
-			padding: 20px;
-		}
-		h3 {
-			margin-bottom: 30px;
-		}
-		.table {
-			margin-top: 20px;
-		}
-		.form-control {
-			margin-bottom: 5px;
-		}
-		.selecionado {
-			background-color: yellow;
-		}
-		.negrito {
-			font-weight: bold;
-		}
-	</style>
+    <script src="js/products.controller.js"></script>
+    <script src="js/hampers.controller.js"></script>
 </head>
 <body>
 	<div ng-controller="hampers">
@@ -51,17 +27,21 @@
 			<table ng-show="hampers.length > 0" class="table">
 				<tr>
 					<th></th>
-					<th>Nome</th>
-					<th>Descrição</th>
-					<th>Produtos</th>
-					<th>Valor de Venda</th>
+					<th class="text-center">Nome</th>
+					<th class="text-center">Descrição</th>
+					<th class="text-center">Produtos</th>
+					<th class="text-center">Valor de Venda</th>
 				</tr>
 				<tr ng-class="{'selecionado negrito': hamper.selected}" ng-repeat="hamper in hampers">
 					<td><input type="checkbox" ng-model="hamper.selected"/></td>
 					<td>{{hamper.name}}</td>
 					<td>{{hamper.description}}</td>
-					<td ng-repeat="prod in hamper.products">{{prod.name}}</td>
-					<td ng-bind="calculateTotalPrice(hamper)"></td>
+					<td>
+						<div ng-repeat="prod in hamper.products">
+							{{prod.name}} - {{prod.brand}} | R$ {{prod.price}} Reais
+						</div>
+					</td>
+					<td>R$ {{calculateTotalPrice(hamper)}}</td>
 				</tr>
 			</table>
 			
@@ -75,9 +55,9 @@
 				<tr>
 					<th></th>
 					
-					<th>Nome</th>
-					<th>Marca</th>
-					<th>Preço</th>
+					<th class="text-center">Nome</th>
+					<th class="text-center">Marca</th>
+					<th class="text-center">Preço</th>
 				</tr>
 				<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
 					<td><input type="checkbox" ng-model="product.selected"/></td>
