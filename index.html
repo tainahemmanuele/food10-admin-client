@@ -41,20 +41,6 @@
 <body>
 	<div ng-controller="hampers">
 		<div class="jumbotron">
-			<table ng-show="products.length > 0" class="table">
-				<tr>
-					<th></th>
-					
-					<th>Nome</th>
-					<th>Preço</th>
-				</tr>
-				<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
-					<td><input type="checkbox" ng-model="product.selected"/></td>
-					<td>{{product.name}}</td>
-					<td>{{product.price}}</td>
-				</tr>
-			</table>
-			<hr/>
 			<form name="contatoForm">
 				<input class="form-control" type="text" ng-model="hamper.name" name="nome" placeholder="Nome" ng-required="true"/>
 				<input class="form-control" type="text" ng-model="hamper.description" name="descricao" placeholder="Descrição"/>
@@ -90,11 +76,13 @@
 					<th></th>
 					
 					<th>Nome</th>
+					<th>Marca</th>
 					<th>Preço</th>
 				</tr>
 				<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
 					<td><input type="checkbox" ng-model="product.selected"/></td>
 					<td>{{product.name}}</td>
+					<td>{{product.brand}}</td>
 					<td>{{product.price}}</td>
 					<td><button  ng-click="showEditProductForm(product)">Editar Produto</button></td>
 				</tr>
@@ -102,6 +90,7 @@
 			<hr/>
 			<form name="contatoForm">
 				<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
+				<input class="form-control" type="text" ng-model="product.brand" name="marca" placeholder="Marca" ng-required="true"/>
 				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Preço" ng-required="true"/>
 			</form>
 			<form name="editProduct" ng-show="editFormVisibility"  >
