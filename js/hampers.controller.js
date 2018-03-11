@@ -3,6 +3,11 @@ app.controller('hampers', ($scope, $http) => {
     const products = base + 'products';
     const hampers = base + 'hampers';
     const profit = 1;
+    $scope.levels = [
+        { label: 'Básica', value: 1 },
+        { label: 'Média', value: 2 },
+        { label: 'Completa', value: 3 }
+    ];
 
     $scope.hamper = {};
 
@@ -23,7 +28,9 @@ app.controller('hampers', ($scope, $http) => {
     $scope.createHamper = () => {
         $http.post(hampers, $scope.hamper).then(res => {
             $scope.hampers.push(res.data);
-            delete $scope.hamper;
+            delete $scope.hamper.name;
+            delete $scope.hamper.description;
+            $scope.hamper.level = $scope.levels[0].value
         });
                                     
     };

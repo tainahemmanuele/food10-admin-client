@@ -20,6 +20,9 @@
 			<form name="contatoForm">
 				<input class="form-control" type="text" ng-model="hamper.name" name="nome" placeholder="Nome" ng-required="true"/>
 				<input class="form-control" type="text" ng-model="hamper.description" name="descricao" placeholder="Descrição"/>
+				<select class="form-control" ng-options="level.value as level.label for level in levels" 
+					ng-model="hamper.level" ng-init="hamper.level = levels[0].value">
+				</select>			
 			</form>
 
 			<button class="btn btn-primary btn-block" ng-click="createHamper()" ng-disabled="contatoForm.$invalid">Criar Cesta</button>
@@ -29,6 +32,7 @@
 					<th></th>
 					<th class="text-center">Nome</th>
 					<th class="text-center">Descrição</th>
+					<th class="text-center">Tipo</th>
 					<th class="text-center">Produtos</th>
 					<th class="text-center">Valor de Venda</th>
 				</tr>
@@ -36,6 +40,7 @@
 					<td><input type="checkbox" ng-model="hamper.selected"/></td>
 					<td>{{hamper.name}}</td>
 					<td>{{hamper.description}}</td>
+					<td>{{levels[hamper.level-1].label}}</td>
 					<td>
 						<div ng-repeat="prod in hamper.products">
 							{{prod.name}} - {{prod.brand}} | R$ {{prod.price}} Reais
@@ -57,35 +62,37 @@
 					
 					<th class="text-center">Nome</th>
 					<th class="text-center">Marca</th>
+					<th class="text-center">Categoria</th>
+					<th class="text-center">Forcenedor</th>
 					<th class="text-center">Preço</th>
 				</tr>
 				<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
 					<td><input type="checkbox" ng-model="product.selected"/></td>
 					<td>{{product.name}}</td>
 					<td>{{product.brand}}</td>
+					<td>{{levels[product.level-1].label}}</td>
+					<td>{{product.vendor}}</td>
 					<td>{{product.price}}</td>
 					<td><button  ng-click="showEditProductForm(product)">Editar Produto</button></td>
 				</tr>
 			</table>
-			<hr/>
-			<form name="contatoForm">
+			<hr>
+			<form class="form-group">
 				<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
 				<input class="form-control" type="text" ng-model="product.brand" name="marca" placeholder="Marca" ng-required="true"/>
+				<select class="form-control" ng-options="vendor for vendor in vendors" 
+					ng-model="product.vendor" ng-init="product.vendor = vendors[0]">
+				</select>
 				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Preço" ng-required="true"/>
+				<select class="form-control" ng-options="level.value as level.label for level in levels" 
+					ng-model="product.level" ng-init="product.level = levels[0].value">
+				</select>				
 			</form>
 			<form name="editProduct" ng-show="editFormVisibility"  >
 				<input class="form-control" type="text" ng-model="product.name" name="nome"  placeholder="Edite o nome do produto" ng-required="true"/>
 				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Edite o preco do produto" ng-required="true"/>
 				<button  class="btn btn-primary btn-block" ng-click="updateProduct(product)" >Editar Produto</button>
 			</form>
-
-			<!--<div ng-messages="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
-					Por favor, preencha o campo nome!
-			</div>
-
-			<div ng-messages="contatoForm.preco.$error.required && contatoForm.preco.$dirty" class="alert alert-danger">
-					Por favor, preencha o campo preço!
-			</div>-->
 
 			<button class="btn btn-primary btn-block" ng-click="createProduct()" ng-disabled="contatoForm.$invalid">Adicionar Produto</button>
 			<button class="btn btn-danger btn-block" ng-click="apagarProdutos()">Apagar produtos</button>

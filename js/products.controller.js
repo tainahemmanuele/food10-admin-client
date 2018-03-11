@@ -3,6 +3,13 @@ var app = angular.module('food10', []);
 app.controller('products', ($scope, $http) => {
     const base = 'https://food10-api.herokuapp.com/';
     const products = base + 'products';
+    $scope.levels = [
+        { label: 'Básica', value: 1 },
+        { label: 'Média', value: 2 },
+        { label: 'Completa', value: 3 }
+    ];
+
+    $scope.vendors = ['Fornecedor 1', 'Fornecedor 2', 'Fornecedor 3'];
 
     const init = () => {
         $http.get(products).then(res => {
@@ -17,7 +24,10 @@ app.controller('products', ($scope, $http) => {
     $scope.createProduct = () => {
         $http.post(products, $scope.product).then(res => {
             $scope.products.push(res.data);
-            delete $scope.product;
+            delete $scope.product.name;
+            delete $scope.product.price;
+            delete $scope.product.brand;
+            $scope.product.level = $scope.levels[0].value;
         });
     };
 
