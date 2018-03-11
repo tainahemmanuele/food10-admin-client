@@ -1,23 +1,86 @@
-.jumbotron {
-    width: 800px;
-    text-align: center;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
+.container-fluid {
+    padding: 0px;
 }
+
+.jumbotron {
+    text-align: center;
+    margin: auto;
+    border-radius: 5px;
+    background: white;
+}
+
+.navbar {
+    padding-left: 15px;
+    background-color:  #ff9c5a;
+    width: 100%;
+}
+
+th {
+    color:  #ff9c5a;    
+}
+
+.navbar-inverse {
+    border: none;    
+}
+
+.navbar-inverse .navbar-nav>li:hover {
+    background-color: #FF6124;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+    font-size: 18px;
+}
+
+.navbar-inverse .navbar-brand {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;    
+}
+
+.edit {
+    background: #ff9c5a;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.edit:hover {
+    background: #FF6124;
+    color: white;
+}
+
+.btn-add {
+    background: #ff9c5a;
+    color: white;    
+}
+
+.btn-add:hover {
+    background: #FF6124;
+    color: white;    
+}
+
+.btn-rm {
+    color: #ff9c5a;
+    background: white;
+    border: #ff9c5a solid 1px;  
+}
+
+.btn-rm:hover {
+    color: #FF6124;
+    border: #FF6124 solid 2px;        
+}
+
 h3 {
     margin-bottom: 30px;
-}
-.table {
-    margin-top: 20px;
 }
 .form-control {
     margin-bottom: 5px;
 }
 .selecionado {
-    background-color: yellow;
+    border:  #ff9c5a solid 3px;
+    background: white;
 }
 .negrito {
     font-weight: bold;
 }
+

@@ -1,5 +1,3 @@
-var app = angular.module('food10', []);
-
 app.controller('products', ($scope, $http) => {
     const base = 'https://food10-api.herokuapp.com/';
     const products = base + 'products';

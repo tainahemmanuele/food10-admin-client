@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food10</title>
+    <title>Compra Agendada</title>
 
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/style.css">
 
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="js/app.js"></script>
     <script src="js/products.controller.js"></script>
     <script src="js/hampers.controller.js"></script>
 </head>
-<body>
-	<div ng-controller="hampers">
-		<div class="jumbotron">
-			<form name="contatoForm">
+<body ng-controller="appController" class="container-fluid">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" class="name">Compra Agendada</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li ng-click="activeTab = 'users'"><a>Usuarios</a></li>
+				<li ng-click="activeTab = 'hampers'"><a>Cestas</a></li>
+				<li ng-click="activeTab = 'products'"><a>Produtos</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div ng-controller="hampers" ng-if="activeTab == 'hampers'">
+		<div class="jumbotron container">
+			<form name="hamperForm">
 				<input class="form-control" type="text" ng-model="hamper.name" name="nome" placeholder="Nome" ng-required="true"/>
 				<input class="form-control" type="text" ng-model="hamper.description" name="descricao" placeholder="Descrição"/>
 				<select class="form-control" ng-options="level.value as level.label for level in levels" 
@@ -25,7 +38,7 @@
 				</select>			
 			</form>
 
-			<button class="btn btn-primary btn-block" ng-click="createHamper()" ng-disabled="contatoForm.$invalid">Criar Cesta</button>
+			<button class="btn btn-add btn-block" ng-click="createHamper()" ng-disabled="hamperForm.$invalid">Criar Cesta</button>
 			
 			<table ng-show="hampers.length > 0" class="table">
 				<tr>
@@ -37,7 +50,7 @@
 					<th class="text-center">Valor de Venda</th>
 				</tr>
 				<tr ng-class="{'selecionado negrito': hamper.selected}" ng-repeat="hamper in hampers">
-					<td><input type="checkbox" ng-model="hamper.selected"/></td>
+					<td><input type="checkbox" class="label-tex" ng-model="hamper.selected"/></td>
 					<td>{{hamper.name}}</td>
 					<td>{{hamper.description}}</td>
 					<td>{{levels[hamper.level-1].label}}</td>
@@ -50,34 +63,13 @@
 				</tr>
 			</table>
 			
-			<button class="btn btn-danger btn-block" ng-click="deleteHampers()">Apagar Cesta</button>
+			<button class="btn btn-rm btn-block" ng-click="deleteHampers()">Apagar Cesta</button>
 		</div>
 	</div>
 
-	<div ng-controller="products">
-		<div class="jumbotron">
-			<table ng-show="products.length > 0" class="table">
-				<tr>
-					<th></th>
-					
-					<th class="text-center">Nome</th>
-					<th class="text-center">Marca</th>
-					<th class="text-center">Categoria</th>
-					<th class="text-center">Forcenedor</th>
-					<th class="text-center">Preço</th>
-				</tr>
-				<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
-					<td><input type="checkbox" ng-model="product.selected"/></td>
-					<td>{{product.name}}</td>
-					<td>{{product.brand}}</td>
-					<td>{{levels[product.level-1].label}}</td>
-					<td>{{product.vendor}}</td>
-					<td>{{product.price}}</td>
-					<td><button  ng-click="showEditProductForm(product)">Editar Produto</button></td>
-				</tr>
-			</table>
-			<hr>
-			<form class="form-group">
+	<div ng-controller="products" ng-if="activeTab == 'products'">
+		<div class="jumbotron container">
+			<form class="form-group" name="productForm">
 				<input class="form-control" type="text" ng-model="product.name" name="nome" placeholder="Nome" ng-required="true"/>
 				<input class="form-control" type="text" ng-model="product.brand" name="marca" placeholder="Marca" ng-required="true"/>
 				<select class="form-control" ng-options="vendor for vendor in vendors" 
@@ -93,9 +85,37 @@
 				<input class="form-control" type="number" ng-model="product.price" name="preco" placeholder="Edite o preco do produto" ng-required="true"/>
 				<button  class="btn btn-primary btn-block" ng-click="updateProduct(product)" >Editar Produto</button>
 			</form>
-
-			<button class="btn btn-primary btn-block" ng-click="createProduct()" ng-disabled="contatoForm.$invalid">Adicionar Produto</button>
-			<button class="btn btn-danger btn-block" ng-click="apagarProdutos()">Apagar produtos</button>
+		
+			<button class="btn btn-add btn-block" ng-click="createProduct()" ng-disabled="productForm.$invalid">Adicionar Produto</button>
+			<button class="btn btn-rm btn-block" ng-click="apagarProdutos()">Apagar produtos</button>
+			
+			<div ng-show="products.length > 0">
+				<h2>Produtos</h2>
+				<table class="container">
+					<tr>
+						<th class="text-center"></th>
+						<th class="text-center">Nome</th>
+						<th class="text-center">Marca</th>
+						<th class="text-center">Categoria</th>
+						<th class="text-center">Forcenedor</th>
+						<th class="text-center">Preço</th>
+						<th></th>
+					</tr>
+					<tr ng-class="{'selecionado negrito': product.selected}" ng-repeat="product in products">
+						<td><input type="checkbox" class="label-text" ng-model="product.selected"/></td>
+						<td>{{product.name}}</td>
+						<td>{{product.brand}}</td>
+						<td>{{levels[product.level-1].label}}</td>
+						<td>{{product.vendor}}</td>
+						<td>{{product.price}}</td>
+						<td>
+							<button class="btn edit" ng-click="showEditProductForm(product)">Editar Produto</button>
+						</td>
+					</tr>
+					<hr>
+				</table>
+				<hr>
+			</div>
 		</div>
 	</div>
 </body>
